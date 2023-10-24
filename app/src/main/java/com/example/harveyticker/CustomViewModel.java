@@ -1,5 +1,8 @@
 package com.example.harveyticker;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
@@ -15,6 +18,7 @@ public class CustomViewModel extends ViewModel {
     public MutableLiveData<LinkedList<String>> getTickers() {
         if (tickers == null) {
             tickers = new MutableLiveData<LinkedList<String>>();
+            tickers.setValue(new LinkedList<String>());
             loadTickers();
         }
         return tickers;
@@ -49,7 +53,12 @@ public class CustomViewModel extends ViewModel {
     }
 
     public void setCurrent(String newCurrent){
+        if(current == null){
+            Log.i("MH", "current is null");
+        }
+
         current.setValue(newCurrent);
+        //have if statement to check if null
 
     }
 
