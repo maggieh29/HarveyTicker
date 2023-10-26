@@ -7,6 +7,13 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="59dp"
+        android:layout_height="match_parent"
+        android:backgroundTint="#E48668"
+        android:text="Home" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fvLeft"
         android:name="com.example.harveyticker.TickerFragment"
@@ -22,6 +29,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
          />
+
+
 
 
 </LinearLayout>

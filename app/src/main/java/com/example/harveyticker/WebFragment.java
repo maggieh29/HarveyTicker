@@ -30,8 +30,11 @@ public class WebFragment extends Fragment {
         @Override
         public void onChanged(String current) {
            current = sharedModel.getCurrent().getValue().toString();
-           changeWeb(current);
-
+           if (current == "Home"){
+               webView.loadUrl("https://seekingalpha.com/");
+           }else {
+               changeWeb(current);
+           }
         }
     };
 

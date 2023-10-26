@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.Manifest;
 import android.media.MediaCodec;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.regex.Pattern;
@@ -19,12 +21,29 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentManager fg;
     private CustomViewModel sharedModel;
+    Button home;
+
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            sharedModel.setCurrent("Home");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedModel = new ViewModelProvider(this).get(CustomViewModel.class);
+        home = findViewById(R.id.homeButton);
+        home.setOnClickListener(listener);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("sms");
+        if(message != null) {
+            //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            onNewIntent(intent);
+        }
 
 
         //for the broadcast reciever
@@ -50,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     String message = intent.getStringExtra("sms");
 
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+   // Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
     String regex3 = "Ticker:<<[a-zA-Z][a-zA-Z][a-zA-Z]>>";
     String regex4 = "Ticker:<<[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]>>";
@@ -63,18 +82,18 @@ public class MainActivity extends AppCompatActivity {
         if (match3 == true) {
             char[] ch = message.toCharArray();
             char a, b, c;
-            a = ch[10];
-            b = ch[11];
-            c = ch[12];
+            a = ch[9];
+            b = ch[10];
+            c = ch[11];
             tick = new StringBuilder().append("").append(a).append(b).append(c).toString();
         }
         if (match4 == true) {
             char[] ch = message.toCharArray();
             char a, b, c, d;
-            a = ch[10];
-            b = ch[11];
-            c = ch[12];
-            d = ch[13];
+            a = ch[9];
+            b = ch[10];
+            c = ch[11];
+            d = ch[12];
             tick = new StringBuilder().append("").append(a).append(b).append(c).append(d).toString();
         }
 
@@ -85,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     } else {
         Toast.makeText(this, "SMS does not match format Ticker:<<XXX>>", Toast.LENGTH_LONG).show();
-        recreate();
+        //recreate();
     }
 
 

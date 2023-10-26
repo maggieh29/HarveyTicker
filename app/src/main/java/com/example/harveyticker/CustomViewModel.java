@@ -32,14 +32,18 @@ public class CustomViewModel extends ViewModel {
         tickerslist.add("AAPL");
         tickerslist.add("DIS");
 
+
         tickers.setValue(tickerslist);
 
     }
 
     public void addTicker(String newTick){
-        LinkedList<String> tickerlist2 = tickers.getValue();
+        getTickers();
+        LinkedList<String> tickerlist2 = new LinkedList<>();
+                tickerlist2 = tickers.getValue();
         tickerlist2.add(newTick);
         tickers.setValue(tickerlist2);
+        setCurrent(newTick);
 
     }
 
@@ -55,6 +59,7 @@ public class CustomViewModel extends ViewModel {
     public void setCurrent(String newCurrent){
         if(current == null){
             Log.i("MH", "current is null");
+            current = new MutableLiveData<String>();
         }
 
         current.setValue(newCurrent);
